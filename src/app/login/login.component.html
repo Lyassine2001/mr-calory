@@ -1,1 +1,17 @@
-<p>login works!</p>
+<form (submit)="onLogin()">
+    <h3 style="color: green;">Login</h3>
+    <div class="form-group">
+        <label class="col-lg-2 form-label">Email</label>
+        <div class="col-lg-10">
+            <input type="email" class="form-control" [(ngModel)]="email" name="email">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 form-label">Password</label>
+        <div class="col-lg-10">
+            <input type="password" class="form-control" [(ngModel)]="password" name="password">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success mt-2">Submit</button>
+</form>
+<br>

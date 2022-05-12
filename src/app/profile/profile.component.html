@@ -1,55 +1,90 @@
 <div class="container">
-    <h4 style="color: green;">My Application</h4>
-    <hr>
-    <h5 style="color: aquamarine;">Select a Dietitain</h5>
-    <form action="page.php" method="post"></form>
-        <select name="Dietitians">
-        <option>Dietitians</option>  
-        <option>Jane Doe</option>
-        <option>Sarah Smith</option>
-        <option>Mary Mickel</option>
-        </select>
-        <br>
-        <hr>
-        <h5 style="color: aquamarine;">Select a Program</h5>
-        <input type="checkbox" name="Programs" value="Meal">
-        Personalized meal plan
-        <br>
-        <input type="checkbox" name="Info" value="Info">
-        Information and tips
-        <br>
-        <input type="checkbox" name="Sup" value="Sup">
-        Encouragement and support
-        <br>
-        <input type="checkbox" name="Progress" value="Progress">
-        Tracking progress
-        <br>
-        <hr>
-        <h5 style="color: aquamarine;">Select a Coach</h5>
-        <form action="page.php" method="post"></form>
-        <select name="Coaches">
-        <option>Coaches</option> 
-        <option>John Smith</option>
-        <option>Mike Ross</option>
-        <option>Liam James</option>
-        </select>
-        <br>
-        <hr>
-        <h5 style="color: aquamarine;">Select a Class</h5>
-        <input type="radio" name="morning" value="morning">
-      Morning Class: 10:00 A.M
-    <br>
-    <h5 style="color: aquamarine;">Select a Class</h5>
-        <input type="radio" name="noon" value="noon">
-      Noon Class: 4:00 P.M
-    <br>
-    <h5 style="color: aquamarine;">Select a Class</h5>
-        <input type="radio" name="noon" value="noon">
-      Evening Class: 7:00 P.M
-    <br>
-        <hr>
-        <div class="form-group">
-            <button type="button" class="btn btn-dark" id="btnAdd">Submit</button>
-            </div>
+  <div *ngIf="application && application.length > 0; then thenBlock else elseBlock"></div>
+  <ng-template #thenBlock>
+    <h4 class="mb-5 mt-2" style="color: green;">My Application {{ application[0]._id }}</h4>
+    <div class="d-flex">
+      <div class="mr-3"><h5 style="color: black;">Payment Number</h5></div>
+      <div>{{ application[0].payment_number }}</div>
     </div>
-    
+    <div class="d-flex">
+      <div class="mr-3"><h5 style="color: black;">Dietitian</h5></div>
+      <div>{{ application[0].dietitian }}</div>
+    </div>
+    <div class="d-flex">
+      <div class="mr-3"><h5 style="color: black;">Program</h5></div>
+      <div>{{ application[0].program }}</div>
+    </div>
+    <div class="d-flex">
+      <div class="mr-3"><h5 style="color: black;">Coach</h5></div>
+      <div>{{ application[0].coach }}</div>
+    </div>
+    <div class="d-flex">
+      <div class="mr-3"><h5 style="color: black;">Time</h5></div>
+      <div>{{ application[0].time }}</div>
+    </div>
+  </ng-template>
+  <ng-template #elseBlock>
+    <h4 class="mb-3" style="color: green;">Add Application</h4>
+    <form [formGroup]="myApplicationFrm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <h5 style="color: black;">OMT Receipt:</h5>
+        <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)">
+      </div>
+      <img [src]="receiptSrc" *ngIf="receiptSrc" style="height: 300px; width: 500px;" />
+      <h5 style="color: black;">Payment Number</h5>
+      <div class="form-group">
+        <div class="col-lg-12 px-0">
+          <input type="text" class="form-control" [(ngModel)]="paymentNumber" formControlName="paymentNumber">
+        </div>
+      </div>
+      <br>
+      <hr>
+      <br>
+      <h5 style="color: black;">Select a Dietitain</h5>
+      <select class="custom-select mb-3" (change)="changeDietitian($event)" formControlName="dietitianName">
+        <option value="">Choose Dietitian</option>
+        <option *ngFor="let dietitian of Dietitian" [ngValue]="dietitian">
+          {{ dietitian }}
+        </option>
+      </select>
+      <h5 style="color: black;">Select a Program</h5>
+      <div *ngFor="let program of Program; let i=index">
+        <label>
+          <input type="checkbox" [value]="program.value" (change)="onProgramChange($event)" />
+          {{program.name}}
+        </label>
+      </div>
+      <br>
+      <hr>
+      <br>
+      <h5 style="color: black;">Select a Coach</h5>
+      <select class="custom-select mb-3" (change)="changeCoach($event)" formControlName="coachName">
+        <option value="">Choose Coach</option>
+        <option *ngFor="let coach of Coach" [ngValue]="coach">
+          {{ coach }}
+        </option>
+      </select>
+      <h5 style="color: black;">Select a Class</h5>
+      <div class="p-4">
+        <div>
+          <input id="morning" type="radio" class="custom-control-input" value="morning" name="class"
+            formControlName="class">
+          <label class="custom-control-label" for="morning">Morning Class: 10:00 A.M</label>
+        </div>
+        <div>
+          <input id="noon" type="radio" class="custom-control-input" value="noon" name="class" formControlName="class">
+          <label class="custom-control-label" for="noon">Noon Class: 4:00 P.M</label>
+        </div>
+        <div>
+          <input id="evening" type="radio" class="custom-control-input" value="evening" name="class"
+            formControlName="class">
+          <label class="custom-control-label" for="evening">Evening Class: 7:00 P.M</label>
+        </div>
+      </div>
+      <hr>
+      <div class="form-group my-4">
+        <button type="submit" class="btn btn-success" id="btnAdd">Submit</button>
+      </div>
+    </form>
+  </ng-template>
+</div>

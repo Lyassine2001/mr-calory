@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./global-information.component.css']
 })
 export class GlobalInformationComponent implements OnInit {
+  fn: string | undefined;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(
     
-  }
+  ) {}
+
+  ngOnInit() {}
+
+  
 }

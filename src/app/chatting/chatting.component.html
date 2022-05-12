@@ -1,23 +1,29 @@
 <div class="container">
-<h4 style="color: green;">Do you want your Dietitian or Coach?</h4>
-<h6>Select a Dietitain</h6>
-<form action="page.php" method="post"></form>
-    <select name="Dietitians">
-    <option>Dietitians</option>  
-    <option>Jane Doe</option>
-    <option>Sarah Smith</option>
-    <option>Mary Mickel</option>
-    </select>
-    <br>
-    <br>
-    <h6>Select a Coach</h6>
-    <form action="page.php" method="post"></form>
-    <select name="Coaches">
-    <option>Coaches</option> 
-    <option>John Smith</option>
-    <option>Mike Ross</option>
-    <option>Liam James</option>
-    </select>
-    <br>
-    <hr>
+    <h4 style="color: green;">Contact Dietitian / Coach</h4>
+    <form (submit)="onSendMessage()" class="d-flex flex-column">
+        <div class="input-group my-1 d-flex flex-column">
+            <label> Name </label>
+            <input type="text" placeholder="Enter your name" class="input-groups" [(ngModel)]="name" name="name" />
+        </div>
+        <div class="input-group my-1 d-flex flex-column">
+            <label>Email </label>
+            <input type="text" placeholder="Enter your Email" class="input-groups" [(ngModel)]="email" name="email" />
+        </div>
+        <label> Subject </label>
+        <select class="custom-select mb-3" (change)="changeSubject($event)" formControlName="selectedSubject">
+            <option value="">Choose Subject</option>
+            <option *ngFor="let subject of Subject" [ngValue]="subject">
+                {{ subject }}
+            </option>
+        </select>
+        <div class="input-group my-1 d-flex flex-column">
+            <label> Message </label>
+            <textarea type="text" placeholder="Enter your message" class="input-groups" [(ngModel)]="message"
+                name="message"></textarea>
+        </div>
+        <div class="input-group my-1 d-flex flex-column">
+            <button class="btn btn-success send-msg" type="submit">Send Message</button>
+            <br>
+        </div>
+    </form>
 </div>

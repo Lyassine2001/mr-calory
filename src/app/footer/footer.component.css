@@ -1,3 +1,20 @@
 #Logo{ 
     float: left;
 }
+
+#social-media{
+    background-color: #219e43;
+    padding: 100px 0;
+}
+#socialmedia p{
+    font-size: 70px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.social-icons img{
+    width: 60px;
+    transition: 0.5s;
+}
+.social-icons a:hover img{
+    transform: translateY(-10px);
+}
